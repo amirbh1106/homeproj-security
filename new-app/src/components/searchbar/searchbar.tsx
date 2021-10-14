@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 
 
 function Searchbar(props : any){
-const[input , setinput] = useState(0);
+const[input , setinput] = useState<number>(0);
 
  function handleChange(e: any){
      setinput(e.target.value)

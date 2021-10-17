@@ -7,23 +7,20 @@ function Profile(props: any){
         if(props !== {}){
             setitems(props.data?.items)
         }
-        console.log(items)
-      }, [props,items]);
-   
-      if(items !== "undifined"){
+      }, [props]);
+
+    
         return(
             <div>
-                <h1>{items?.account_id}</h1>
-                 <img src={items?.profile_image} alt="profile_image" ></img>
-                
+                { items &&
+                <div>
+                <h1>{items[0]?.display_name}</h1>
+                <img src={items[0]?.profile_image} alt="profile_image" ></img>
+                <h1>reputation: {items[0]?.reputation}</h1><h1>accept rate: {items[0]?.accept_rate}</h1>
+                </div>
+                }
             </div>
         )
-      }else{
-          return(
-            <h1>1</h1>
-          )
-      }
-   
 }
 
 export default Profile;

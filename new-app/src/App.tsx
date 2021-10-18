@@ -8,27 +8,40 @@ import Cardlist from './components/postcards/cardlist';
 
 function App() {
   const [id , setid] = useState("")
-  const[res , setres] = useState<any>({})
+  const[userres , setuserres] = useState<any>({})
+  const[userpostres , setuserpostres] = useState<any>({})
   function getuserid(value : any){
       setid(value)
-      if(res !== {}){
+      if(userres !== {}){
       axios("https://api.stackexchange.com/2.3/users/1264804?order=desc&sort=reputation&site=stackoverflow")
       .then(function (response) {
-        setres({})
-        setres(response)
+        setuserres({})
+        setuserres(response)
       })
     }
+  getuserposts()
   }
 
-if(res !== {}){
+  function getuserposts(){
+    axios("https://api.stackexchange.com/2.2/users/1264804/questions?order=desc&sort=activity&site=stackoverflow")
+    .then(function (response) {
+      setuserpostres({})
+      setuserpostres(response)
+    })
+  }
+
+if(userres !== {} && userpostres !== {}){
   return (
     <div className="App">
       <h1>welocme to stack over flow page app</h1>
-      <Searchbar getid={getuserid} id={id}/>
+      <Searchbar
+       getid={getuserid}
+        id={id}
+        />
       {id && 
       <div>
-      <Profile {...res}/> 
-      <Cardlist />
+      <Profile {...userres}/> 
+      <Cardlist {...userpostres}/>
       </div>
       }
     </div>

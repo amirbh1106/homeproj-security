@@ -1,19 +1,28 @@
 import {useEffect, useState} from 'react';
-import axios from 'axios';
 import Card from './card'
+import './cardlist.css'
 
-function Cardlist(){
-    const[post , setposts] = useState<any>()
-    useEffect(() =>{
-        axios("https://api.stackexchange.com/2.3/users/1264804?order=desc&sort=reputation&site=stackoverflow")
-      .then(function (response) {
-        setposts(response.data)
-      })
-    },[])
+function Cardlist(props : any) {
+    const[post , setposts] = useState<any>([])
+    const[postarr , setpostarr] = useState<any>([])
+    useEffect(() => {
+      if(props !== {}){
+        setposts(props.data?.items)
+      }
+      for(let i in post){
+        setpostarr([...post ,i])
+    }
+    }, [post,props]);
+    
+
+    // function jsontoarray(){
+    
+    // }
     return(
         <div>
-          {post && post.items.map((c: any , i: number) => {
-             return <Card info={c} key={i}/>
+          <h1>number of posts: {postarr.length}</h1>
+          {postarr && postarr.map((c: any , i: number) => {
+             return<div className="card"><Card info={c} key={i}/></div>
           })}
            
         </div>

@@ -2,9 +2,10 @@
 
 
 function Card(props : any){
+    console.log(props.info)
     return(
         <div>
-            <h1>{props}</h1>
+            <h1>{props.info.title}</h1>
         </div>
     )
     }

@@ -7,13 +7,13 @@ import Cardlist from './components/postcards/cardlist';
 
 
 function App() {
-  const [id , setid] = useState("")
+  const [id , setid] = useState(0)
   const[userres , setuserres] = useState<any>({})
   const[userpostres , setuserpostres] = useState<any>({})
   function getuserid(value : any){
       setid(value)
       if(userres !== {}){
-      axios("https://api.stackexchange.com/2.3/users/1264804?order=desc&sort=reputation&site=stackoverflow")
+      axios(`https://api.stackexchange.com/2.3/users/${id}?order=desc&sort=reputation&site=stackoverflow`)
       .then(function (response) {
         setuserres({})
         setuserres(response)
@@ -23,14 +23,14 @@ function App() {
   }
 
   function getuserposts(){
-    axios("https://api.stackexchange.com/2.2/users/1264804/questions?order=desc&sort=activity&site=stackoverflow")
+    axios(`https://api.stackexchange.com/2.3/users/${id}/questions?order=desc&sort=activity&site=stackoverflow`)
     .then(function (response) {
       setuserpostres({})
       setuserpostres(response)
     })
   }
 
-if(userres !== {} && userpostres !== {}){
+if(userres.length !== 0 && userpostres.length !== 0){
   return (
     <div className="App">
       <h1>welocme to stack over flow page app</h1>

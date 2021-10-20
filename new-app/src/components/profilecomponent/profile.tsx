@@ -8,7 +8,6 @@ function Profile(props: any){
             setitems(props.data?.items)
         }
       }, [props]);
-
     
         return(
             <div>
